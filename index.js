@@ -1,13 +1,12 @@
 window.onload = function () {
   this.main();
-  //setInterval(() => this.main(), 10000); 
-  const button = document.getElementById('downloadButton')
-  button.onclick = handleButtonClick;
+  setInterval(() => this.main(), 10000); 
 }
 
 async function main() {
 
   const canvas = document.getElementById('canvas')
+  canvas.width = canvas.width
 
   const photos = await getPhotos()
 
@@ -23,11 +22,12 @@ async function main() {
 
   const draw = () => {
     arr.forEach((elem, i) => {
-      let image = new Image();
-      image.src = elem;
+      let image = new Image()
+      image.src = elem
+      image.setAttribute('crossorigin', 'anonymous')
 
       image.onload = async () => {
-        x.globalCompositeOperation = "destination-over";
+        x.globalCompositeOperation = "destination-over"
         x.drawImage(image,
           500 * (i === 2 ? i - 2 : i === 3 ? i - 2 : i),
           250 * (i === 1 ? i - 1 : i === 2 ? i - 1 : i === 3 ? i - 2 : i),
@@ -78,8 +78,9 @@ async function getText() {
   return body.quoteText
 }
 
-function handleButtonClick() {
-  const canvas = document.getElementById('canvas')
-  const image = canvas.toDataURL("image/png");
-  document.write('<img src="' + image + '"/>');
+function download(){
+  var download = document.getElementById("download");
+  var image = document.getElementById("canvas").toDataURL("image/png")
+      .replace("image/png", "image/octet-stream");
+  download.setAttribute("href", image);
 }
