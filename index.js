@@ -1,11 +1,13 @@
 window.onload = function () {
   this.main();
   //setInterval(() => this.main(), 10000); 
+  const button = document.getElementById('downloadButton')
+  button.onclick = handleButtonClick;
 }
 
 async function main() {
 
-  const canvas = document.getElementById(`canvas`)
+  const canvas = document.getElementById('canvas')
 
   const photos = await getPhotos()
 
@@ -20,12 +22,12 @@ async function main() {
   const x = canvas.getContext('2d')
 
   const draw = () => {
-      arr.forEach((elem, i) => {
+    arr.forEach((elem, i) => {
       let image = new Image();
       image.src = elem;
 
       image.onload = async () => {
-        x.globalCompositeOperation="destination-over";
+        x.globalCompositeOperation = "destination-over";
         x.drawImage(image,
           500 * (i === 2 ? i - 2 : i === 3 ? i - 2 : i),
           250 * (i === 1 ? i - 1 : i === 2 ? i - 1 : i === 3 ? i - 2 : i),
@@ -74,4 +76,10 @@ async function getText() {
   const response = await fetch('https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&json=parseQuote');
   const body = await response.json();
   return body.quoteText
+}
+
+function handleButtonClick() {
+  const canvas = document.getElementById('canvas')
+  const image = canvas.toDataURL("image/png");
+  document.write('<img src="' + image + '"/>');
 }
