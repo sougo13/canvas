@@ -67,7 +67,7 @@ async function main() {
 }
 
 async function getPhotos() {
-  const response = await fetch('https://api.unsplash.com/photos/random?count=4&query=space&client_id=NR9ATPxcIKwmtInFjop1fi71TJFH9UvxGJ-S7IoYkV4');
+  const response = await fetch('https://api.unsplash.com/photos/random?count=4&query=space&client_id=i0MmjQGTRSLFi0Ncbal09Rz9NGQlEIUQy8LAxbmZenM');
   const body = await response.json();
   return body
 }
